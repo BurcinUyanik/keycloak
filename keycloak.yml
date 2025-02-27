@@ -57,15 +57,6 @@ objects:
             app: '${APPLICATION_NAME}'
           name: '${APPLICATION_NAME}'
         spec:
-          db:
-            vendor: postgres
-            host: postgres
-            usernameSecret:
-              name: postgres-secrets
-              key: POSTGRES_USER
-            passwordSecret:
-              name: postgres-secrets
-              key: POSTGRES_PASSWORD
           containers:
             - env:
                 - name: KEYCLOAK_ADMIN
@@ -74,6 +65,20 @@ objects:
                   value: '${KEYCLOAK_ADMIN_PASSWORD}'
                 - name: KC_PROXY
                   value: 'edge'
+                - name: KC_DB
+                  value: postgres
+                - name: KC_DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secrets
+                      key: POSTGRES_USER
+                - name: KC_DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secrets
+                      key: POSTGRES_PASSWORD
+                - name: KC_DB_URL_DATABASE
+                  value: root
               image: quay.io/keycloak/keycloak:26.1.2
               livenessProbe:
                 failureThreshold: 100
