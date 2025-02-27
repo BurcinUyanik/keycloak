@@ -38,7 +38,7 @@ objects:
         termination: edge
       to:
         name: '${APPLICATION_NAME}'
-  - apiVersion: v1
+  - apiVersion: apps/v1
     kind: Deployment
     metadata:
       labels:
