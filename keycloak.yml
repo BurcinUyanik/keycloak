@@ -57,6 +57,15 @@ objects:
             app: '${APPLICATION_NAME}'
           name: '${APPLICATION_NAME}'
         spec:
+          db:
+            vendor: postgres
+            host: postgres
+            usernameSecret:
+              name: postgres-secrets
+              key: POSTGRES_USER
+            passwordSecret:
+              name: postgres-secrets
+              key: POSTGRES_PASSWORD
           containers:
             - env:
                 - name: KEYCLOAK_ADMIN
